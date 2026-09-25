@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <title>three in a row</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar"><span>R1 / play</span><button id="theme" class="theme" type="button" aria-label="switch color theme" title="switch theme">☀</button></header>
+  <main class="game" aria-labelledby="title">
+    <section class="intro"><p class="eyebrow">a small game for a small screen</p><h1 id="title">three<br>in a<br>row<span class="sticker" aria-hidden="true">☻</span></h1></section>
+    <section class="play-area" aria-label="Tic-Tac-Toe game">
+      <p id="status" class="status" aria-live="polite">your turn / X</p>
+      <div id="board" class="board" role="grid" aria-label="Tic-Tac-Toe board"></div>
+      <div class="actions"><button id="new-game" class="new-game" type="button">new game</button><button id="sound" class="quiet" type="button" aria-pressed="false">sound off</button></div>
+      <p class="hint">tap a square. make a line.</p>
+    </section>
+  </main>
+  <footer>one screen / one purpose</footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

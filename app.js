@@ -1,0 +1,13 @@
+import { outcome, bestMove } from './game.js';
+const boardEl = document.querySelector('#board'); const statusEl = document.querySelector('#status');
+let board = Array(9).fill(''); let gameOver = false; let soundOn = false;
+const tone = (hz) => { if (!soundOn) return; const c = new AudioContext(), o = c.createOscillator(), g = c.createGain(); o.frequency.value = hz; g.gain.value = .04; o.connect(g).connect(c.destination); o.start(); g.gain.exponentialRampToValueAtTime(.001, c.currentTime + .12); o.stop(c.currentTime + .12); };
+function render() { boardEl.innerHTML = ''; board.forEach((mark, i) => { const b = document.createElement('button'); b.className = `cell ${mark ? 'taken' : ''}`; b.type='button'; b.setAttribute('role','gridcell'); b.setAttribute('aria-label', mark ? `square ${i+1}, ${mark}` : `square ${i+1}, empty`); b.textContent = mark; b.addEventListener('click', () => move(i)); boardEl.append(b); }); const end = outcome(board); if (end?.line.length) end.line.forEach(i => boardEl.children[i].classList.add('winner')); }
+function finish(end) { gameOver = true; if (end.winner === 'X') { statusEl.textContent = 'you made the line.'; tone(740); } else if (end.winner === 'O') { statusEl.textContent = 'R1 made the line.'; tone(220); } else { statusEl.textContent = 'a clean draw.'; tone(420); } }
+function move(i) { if (gameOver || board[i]) return; board[i] = 'X'; tone(520); render(); const end = outcome(board); if (end) return finish(end); statusEl.textContent = 'R1 is thinking…'; window.setTimeout(() => { const choice = bestMove(board); if (choice === undefined) return; board[choice] = 'O'; render(); const response = outcome(board); response ? finish(response) : statusEl.textContent = 'your turn / X'; }, 280); }
+function reset() { board = Array(9).fill(''); gameOver = false; statusEl.textContent = 'your turn / X'; render(); }
+document.querySelector('#new-game').addEventListener('click', reset);
+document.querySelector('#sound').addEventListener('click', e => { soundOn = !soundOn; e.currentTarget.textContent = soundOn ? 'sound on' : 'sound off'; e.currentTarget.setAttribute('aria-pressed', soundOn); });
+const initial = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; document.documentElement.dataset.theme = initial;
+document.querySelector('#theme').textContent = initial === 'dark' ? '☀' : '☾'; document.querySelector('#theme').addEventListener('click', e => { const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = next; e.currentTarget.textContent = next === 'dark' ? '☀' : '☾'; });
+render();
