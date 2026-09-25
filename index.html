@@ -4,18 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
-  <title>three in a row</title>
+  <title>Tic Tac Toe Extreme</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="topbar"><span>R1 / play</span><button id="theme" class="theme" type="button" aria-label="switch color theme" title="switch theme">☀</button></header>
+  <header class="topbar"><span>R1 / extreme</span><button id="theme" class="theme" type="button" aria-label="switch color theme" title="switch theme">☀</button></header>
   <main class="game" aria-labelledby="title">
-    <section class="intro"><p class="eyebrow">a small game for a small screen</p><h1 id="title">three<br>in a<br>row<span class="sticker" aria-hidden="true">☻</span></h1></section>
-    <section class="play-area" aria-label="Tic-Tac-Toe game">
-      <p id="status" class="status" aria-live="polite">your turn / X</p>
-      <div id="board" class="board" role="grid" aria-label="Tic-Tac-Toe board"></div>
+    <section class="intro"><p class="eyebrow">five marks. one line.</p><h1 id="title">tic tac<br>toe<br>extreme<span class="sticker" aria-hidden="true">☻</span></h1></section>
+    <section class="play-area" aria-label="Tic Tac Toe Extreme game">
+      <div class="round-tools"><p id="status" class="status" aria-live="polite">your turn / X</p><label class="difficulty-label" for="difficulty">R1 level <select id="difficulty" aria-label="R1 difficulty"><option value="easy">easy</option><option value="medium" selected>medium</option><option value="hard">hard</option></select></label></div>
+      <div class="score" aria-label="Score across rounds"><span><b id="wins">0</b>wins</span><span><b id="draws">0</b>draws</span><span><b id="losses">0</b>losses</span></div>
+      <div class="board-viewport" aria-label="Scroll to reach the full game board"><div id="board" class="board" role="grid" aria-label="Ten by ten board: make five in a row"></div></div>
       <div class="actions"><button id="new-game" class="new-game" type="button">new game</button><button id="sound" class="quiet" type="button" aria-pressed="false">sound off</button></div>
-      <p class="hint">tap a square. make a line.</p>
+      <p class="hint">scroll the board. tap a square. make five.</p>
     </section>
   </main>
   <footer>one screen / one purpose</footer>

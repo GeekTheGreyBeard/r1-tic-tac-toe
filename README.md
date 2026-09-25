@@ -1,6 +1,6 @@
-# three in a row
+# Tic Tac Toe Extreme
 
-A single-page Tic-Tac-Toe game designed for the Rabbit R1's portrait display and simple tap interaction. It also runs in any modern browser.
+A single-page, five-in-a-row game designed for Rabbit R1 portrait displays and tap interaction. Build a line of five X marks before R1 builds five O marks.
 
 ## Play locally
 
@@ -14,9 +14,11 @@ Then visit `http://localhost:8000`.
 
 ## Controls
 
-- Tap/click an empty square to play X.
+- Tap/click an empty square to play X on the 10×10 board.
+- Scroll the board viewport to reach every square on a portrait display.
 - R1 plays O after a short pause.
-- Use **new game** to reset.
+- Choose **easy** for random R1 moves, **medium** for tactical wins and blocks, or **hard** for strategic line building and blocking.
+- The score counts wins, draws, and losses across rounds; **new game** starts a fresh round without clearing it.
 - Toggle sound and light/dark themes from the game UI.
 
 ## Test
