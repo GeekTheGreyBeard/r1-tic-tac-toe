@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { SIZE, createBoard, outcome, bestMove, addRoundScore } from './game.js';
+import { SIZE, createBoard, outcome, bestMove, addRoundScore, addRoundHistory } from './game.js';
 
 const boardWith = entries => { const board = createBoard(); entries.forEach(([index, mark]) => { board[index] = mark; }); return board; };
 const row = boardWith([[30,'X'],[31,'X'],[32,'X'],[33,'X'],[34,'X']]);
@@ -24,4 +24,11 @@ assert.equal(bestMove(createBoard(), 'hard'), 44, 'hard values the center');
 let score = { wins: 0, draws: 0, losses: 0 };
 score = addRoundScore(score, { winner: 'X' }); score = addRoundScore(score, { winner: 'draw' }); score = addRoundScore(score, { winner: 'O' });
 assert.deepEqual(score, { wins: 1, draws: 1, losses: 1 }, 'score tracks rounds');
-console.log('five-in-a-row rules, score, and difficulty levels: ok');
+
+let history = [];
+history = addRoundHistory(history, { winner: 'X' });
+history = addRoundHistory(history, { winner: 'draw' });
+history = addRoundHistory(history, { winner: 'O' });
+assert.deepEqual(history, ['loss', 'draw', 'win'], 'history records losses, draws, and wins newest first');
+assert.deepEqual(addRoundHistory(['win', 'draw', 'loss', 'win', 'draw'], { winner: 'X' }), ['win', 'win', 'draw', 'loss', 'win'], 'history stays compact at five rounds');
+console.log('five-in-a-row rules, score, history, and difficulty levels: ok');

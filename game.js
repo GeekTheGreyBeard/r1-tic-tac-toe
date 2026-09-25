@@ -94,3 +94,8 @@ export function addRoundScore(scores, end) {
   if (end.winner === 'O') return { ...scores, losses: scores.losses + 1 };
   return { ...scores, draws: scores.draws + 1 };
 }
+
+export function addRoundHistory(history, end, limit = 5) {
+  const result = end.winner === 'X' ? 'win' : end.winner === 'O' ? 'loss' : 'draw';
+  return [result, ...history].slice(0, limit);
+}

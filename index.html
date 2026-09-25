@@ -14,6 +14,7 @@
     <section class="play-area" aria-label="Tic Tac Toe Extreme game">
       <div class="round-tools"><p id="status" class="status" aria-live="polite">your turn / X</p><label class="difficulty-label" for="difficulty">R1 level <select id="difficulty" aria-label="R1 difficulty"><option value="easy">easy</option><option value="medium" selected>medium</option><option value="hard">hard</option></select></label></div>
       <div class="score" aria-label="Score across rounds"><span><b id="wins">0</b>wins</span><span><b id="draws">0</b>draws</span><span><b id="losses">0</b>losses</span></div>
+      <section class="round-history" aria-labelledby="history-title"><div class="history-heading"><h2 id="history-title">recent rounds</h2><p id="history-empty">none yet</p></div><ol id="history-list" class="history-list" aria-live="polite"></ol></section>
       <div class="board-viewport" aria-label="Scroll to reach the full game board"><div id="board" class="board" role="grid" aria-label="Ten by ten board: make five in a row"></div></div>
       <div class="actions"><button id="new-game" class="new-game" type="button">new game</button><button id="sound" class="quiet" type="button" aria-pressed="false">sound off</button></div>
       <p class="hint">scroll the board. tap a square. make five.</p>

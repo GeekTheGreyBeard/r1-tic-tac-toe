@@ -1,14 +1,17 @@
-import { createBoard, outcome, bestMove, addRoundScore } from './game.js';
+import { createBoard, outcome, bestMove, addRoundScore, addRoundHistory } from './game.js';
 
 const boardEl = document.querySelector('#board');
 const statusEl = document.querySelector('#status');
 const scoreEls = { wins: document.querySelector('#wins'), draws: document.querySelector('#draws'), losses: document.querySelector('#losses') };
 const difficultyEl = document.querySelector('#difficulty');
+const historyListEl = document.querySelector('#history-list');
+const historyEmptyEl = document.querySelector('#history-empty');
 let board = createBoard();
 let gameOver = false;
 let soundOn = false;
 let difficulty = 'medium';
 let scores = { wins: 0, draws: 0, losses: 0 };
+let history = [];
 
 const tone = hz => {
   if (!soundOn) return;
@@ -19,6 +22,16 @@ const tone = hz => {
 };
 
 function renderScore() { Object.entries(scores).forEach(([key, value]) => { scoreEls[key].textContent = value; }); }
+function renderHistory() {
+  historyListEl.innerHTML = '';
+  historyEmptyEl.hidden = history.length > 0;
+  history.forEach((result, index) => {
+    const item = document.createElement('li');
+    item.className = `round-result ${result}`;
+    item.textContent = `${index + 1}. ${result}`;
+    historyListEl.append(item);
+  });
+}
 function render() {
   boardEl.innerHTML = '';
   board.forEach((mark, index) => {
@@ -30,7 +43,7 @@ function render() {
   const end = outcome(board); if (end?.line.length) end.line.forEach(index => boardEl.children[index].classList.add('winner'));
 }
 function finish(end) {
-  gameOver = true; scores = addRoundScore(scores, end); renderScore();
+  gameOver = true; scores = addRoundScore(scores, end); history = addRoundHistory(history, end); renderScore(); renderHistory();
   if (end.winner === 'X') { statusEl.textContent = 'you made five.'; tone(740); }
   else if (end.winner === 'O') { statusEl.textContent = 'R1 made five.'; tone(220); }
   else { statusEl.textContent = 'a clean draw.'; tone(420); }
@@ -53,4 +66,4 @@ difficultyEl.addEventListener('change', event => { difficulty = event.currentTar
 const initial = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; document.documentElement.dataset.theme = initial;
 document.querySelector('#theme').textContent = initial === 'dark' ? '☀' : '☾';
 document.querySelector('#theme').addEventListener('click', event => { const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = next; event.currentTarget.textContent = next === 'dark' ? '☀' : '☾'; });
-renderScore(); render();
+renderScore(); renderHistory(); render();
